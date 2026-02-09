@@ -1,0 +1,34 @@
+services:
+  aws-healthomics-mcp-server:
+    image: mcp/aws-healthomics-mcp-server:latest
+    container_name: aws-healthomics-mcp-server
+    stdin_open: true
+    tty: true
+    environment:
+      # AWS Credentials
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-}
+
+      # AWS Region Configuration
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+
+      # Logging Configuration
+      - FASTMCP_LOG_LEVEL=${LOG_LEVEL:-ERROR}
+
+    # Optional: Mount AWS credentials from host
+    # Uncomment if you prefer to use your host's AWS credentials
+    # volumes:
+    #   - ~/.aws:/root/.aws:ro
+
+    # Restart policy
+    restart: unless-stopped
+
+    # Network configuration
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
