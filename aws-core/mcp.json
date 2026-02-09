@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "aws-healthomics-mcp-server": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "mcp/aws-healthomics-mcp-server"
+            ]
+        }
+    }   
+}
